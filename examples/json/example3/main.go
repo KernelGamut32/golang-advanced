@@ -17,10 +17,10 @@ type Book struct {
 
 func main() {
 	file, err := os.Open("./books.json")
-	defer file.Close()
 	if err != nil {
 		log.Fatalf("an error occured openinng the file")
 	}
+	defer file.Close()
 	var books []Book
 	err = json.NewDecoder(file).Decode(&books)
 	if err != nil {
@@ -30,9 +30,9 @@ func main() {
 		fmt.Println(book.Title, " ", book.Author)
 	}
 	bookNewfile, err := os.Create("booksnew.json")
-	defer file.Close()
 	if err != nil {
 		log.Fatalf("couldnt create file")
 	}
+	defer bookNewfile.Close()
 	json.NewEncoder(bookNewfile).Encode(books)
 }
